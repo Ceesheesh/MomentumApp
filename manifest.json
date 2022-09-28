@@ -1,0 +1,26 @@
+{
+    "name": "Avion Momentum App",
+    "description": "Building a Momentum App",
+    "version": "1.0.0",
+    "manifest_version": 3,
+    "icons":{
+        "128": "./images/Icon_128.png"       
+    },  
+    "action":{       
+        "default_icons":{
+            "128": "./images/Icon_128.png"
+        } 
+    },
+    "permissions":[
+        "activeTab",
+        "tabs",
+        "storage",
+        "scripting"  
+    ],
+    "chrome_url_overrides" : {
+        "newtab": "./index.html"
+    },
+    "host_permissions":[
+        "*://*/*"
+    ]
+}
