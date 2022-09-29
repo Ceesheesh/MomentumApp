@@ -37,15 +37,16 @@
     transition: .4s;
   }
 
-  input:checked + .slider {
+
+  .timeSwitch:checked + .slider {
     background-color: #2cbc3d;
   }
 
-  input:focus + .slider {
+  .timeSwitch:focus + .slider {
     box-shadow: 0 0 1px #2cbc3d;
-  }
+  
 
-  input:checked + .slider:before {
+  .timeSwitch:checked + .slider:before {
     -webkit-transform: translateX(26px);
     -ms-transform: translateX(26px);
     transform: translateX(26px);
