@@ -44,7 +44,7 @@
 
   .timeSwitch:focus + .slider {
     box-shadow: 0 0 1px #2cbc3d;
-  
+  }
 
   .timeSwitch:checked + .slider:before {
     -webkit-transform: translateX(26px);
