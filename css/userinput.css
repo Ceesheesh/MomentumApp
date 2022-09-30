@@ -1,0 +1,31 @@
+.userInput {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.userInput:focus {
+  outline: none;
+  padding: 0.5rem;
+}
+
+.userAcct {
+  font-size: 2rem;
+}
+
+.focusLabel {
+  font-size: 2rem;
+}
+
+.formDailyFocus{
+  align-items: center;
+  justify-content: center;
+}
+
+
+#AiTwotoneDelete:hover {
+  cursor: pointer;
+}

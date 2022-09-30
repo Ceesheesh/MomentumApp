@@ -1,8 +1,10 @@
 let dailyForm = document.createElement('form');
+dailyForm.classList.add("formDailyFocus");
 dailyForm.addEventListener('submit', SubmitDaily);
 let dailyContainer = document.querySelector("[data-daily=dailyContainer]")
 dailyContainer?.appendChild(dailyForm);
 let svgContainer = document.getElementById('svgContainer');
+svgContainer.children[0].style.transition = "0.5s"
 
 const appreciationArr = ["Nice", "Good job", "Great work", "Way to go"]
 DailyTask();
@@ -17,12 +19,18 @@ function DailyTask() {
     let labelDaily = document.createElement('h1');
     labelDaily.setAttribute('id', 'dailyLabel')
     labelDaily.innerHTML = 'What is your main focus today ?';
+    labelDaily.classList.add('focusLabel')
     dailyForm?.appendChild(labelDaily);
 
     let dailyTask = document.createElement('input');
     dailyTask.setAttribute('id', 'dailyTask');
-    dailyTask.setAttribute('placeholder', 'Write Task Here');
+    // dailyTask.setAttribute('placeholder', 'Write Task Here');
+    dailyTask.classList.add('userInput')
     dailyForm?.appendChild(dailyTask);
+
+    dailyForm.classList.add('flex-column')
+    dailyForm.classList.remove('flex-row')
+
 
   } else {
     let dailyChkbox = document.createElement('input');
@@ -43,7 +51,10 @@ function DailyTask() {
     doneTask.setAttribute('data-congratulate', 'accomplishments');
     doneTask.style.transition = "1s";
     doneTask.style.opacity = "0";    
-    dailyForm.appendChild(doneTask);
+    dailyContainer.appendChild(doneTask);
+
+    dailyForm.classList.add('flex-row')
+    dailyForm.classList.remove('flex-column')
   }
 }
 
@@ -62,7 +73,7 @@ function FinishedDaily(e) {
     task.style.textDecoration = 'line-through' ;
     doneTask.innerHTML = `${appreciationArr[Math.floor(Math.random() * appreciationArr.length)]}!`;
     doneTask.style.opacity = "1"
-    svgContainer.children[0].style.color = "#fdcb6e"
+    svgContainer.children[0].style.color = "#2cbc3d"
   } else {
     task.style.textDecoration = '';
     doneTask.style.opacity = "0";

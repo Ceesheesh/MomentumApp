@@ -1,0 +1,10 @@
+.timeContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mainTime {
+  margin: 0 0.5rem;
+  font-size: 7rem;
+}
