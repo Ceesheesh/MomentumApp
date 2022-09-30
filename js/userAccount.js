@@ -37,7 +37,8 @@ function HelloMessage() {
     
     let introduction = document.createElement('input');
     introduction.setAttribute('id', 'welcomeText')
-    introduction.setAttribute('placeholder', 'Write Name Here')
+    // introduction.setAttribute('placeholder', 'Write Name Here')
+    introduction.classList.add('userInput')
     introForm.appendChild(introduction);    
   } else {
     let introduction = document.createElement('h1');
@@ -60,7 +61,8 @@ function AskLocation() {
     
     let location = document.createElement('input');
     location.setAttribute('id', 'locationText')
-    location.setAttribute('placeholder', 'Write Name Here')
+    // location.setAttribute('placeholder', 'Write Name Here')
+    location.classList.add('userInput')
     locationForm.appendChild(location);    
   }  
 }

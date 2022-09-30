@@ -1,0 +1,69 @@
+.settingsContainer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  left: 0;
+  margin: 0.8rem;
+  transition: 0.5s;
+  color: #dadada;
+}
+
+#IoMdSettings {
+  transition: 0.5s;
+  margin-top: 1rem;
+}
+
+#IoMdSettings:hover {
+  cursor: pointer;
+}
+
+.openSettings {
+  transform: rotate(45deg) scale(1.2)
+}
+
+.settingsModal {
+  padding: 0;
+  min-height: 0;
+  width: 30rem;
+  background-color: #000;
+  border-radius: 0.5rem;
+  opacity: 0.8;
+  transition: all 0.4s;
+}
+
+.nav-items:hover {
+  cursor: pointer;
+  filter:brightness(2);
+}
+
+.add-quotes-btn {
+  border-radius: 3rem;
+  background-color: #2cbc3d;
+  color: #fff;
+  padding: 0.5rem;
+  display: none;  
+}
+
+
+.add-quotes-btn:hover {
+  cursor:pointer;
+}
+
+.newQuotes {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid #fff;
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  width: 100%;
+  padding: 0;
+  display: none;
+  box-sizing: border-box;
+}
+
+.newQuotes:focus {
+  outline: none;
+  /* padding: 0.5rem; */
+}
