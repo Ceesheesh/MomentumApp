@@ -9,16 +9,16 @@
 </head>
 <body>
   <div class="weatherContainer" data-weather="weatherContainer"></div>
-  <div style="text-align:center" >
+  <div style="text-align:center; align-items: center;" class="flex-column">
     <div class="timeContainer">
       <h1 class="mainTime" data-time="mainTime"></h1>
       <!-- Switch Start -->
       <label class="switch">
       <input class="timeSwitch" data-time="timeSwitch" type="checkbox" checked>
       <span class="slider round"></span>
+      <!-- Switch End -->
       </label>
-    </div>
-    <!-- Switch End -->
+    </div>    
     <div class="userAcct" data-user="mainAcct"></div>
     <div data-daily="dailyContainer">
       <div id="svgContainer" style="opacity: 0">
