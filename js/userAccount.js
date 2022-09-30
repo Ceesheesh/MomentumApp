@@ -71,6 +71,7 @@ function AskLocation() {
   } else {
     locationForm.style.opacity = "0"
     locationForm.style.height = "0"
+    locationForm.style.fontSize = "0"
   }
 }
 
