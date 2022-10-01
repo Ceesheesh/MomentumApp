@@ -4,6 +4,7 @@
 @import "./css/userinput.css";
 @import "./css/settings.css";
 @import "./css/quotes.css";
+@import "./css/daily.css";
 
 body {
   margin: 0;

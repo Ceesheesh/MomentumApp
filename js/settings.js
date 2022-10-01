@@ -86,12 +86,20 @@ function PushNewQuotes(e) {
 
 function ListAllQuotes() {
  let AllQuotes = document.querySelector("[data-quote=AllQuotes]")
- 
- try{
-  let quotesArr = JSON.parse(localStorage.getItem("Quotes"))  
-  AllQuotes.innerHTML = '<ul>' + quotesArr.map(function (quote) {
-    return '<li>'   + `"${quote}"` + '</li>';
-  }).join('') + '</ul>';
- } catch {}
+  let quotesArr = JSON.parse(localStorage.getItem("Quotes"));
+  AllQuotes.innerHTML =  
+    "<div>" +
+    quotesArr
+      .map(function (quote) {
+        return `<div class=recordedQuote
+          onclick= "setQuote('${quote}')"            
+        >  "${quote}"  </div>`;
+
+      })
+      .join("") +
+    "</div>";
 }
 
+function setQuote(quote) {
+  document.querySelector("[data-quotes=displayQuote]").innerHTML = `"${quote}"`;
+}

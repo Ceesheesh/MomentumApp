@@ -10,8 +10,8 @@ document.body.style.backgroundColor = "#E3BC9A" //"#dedede" // remove when backg
 loadScript('./js/weather.js')
 loadScript('./js/time.js')
 loadScript('./js/userAccount.js')
-loadScript('./js/daily.js')
 loadScript('./js/settings.js')
 loadScript('./js/quotes.js')
+loadScript('./js/daily.js')
 
 

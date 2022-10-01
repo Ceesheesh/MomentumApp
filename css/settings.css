@@ -65,5 +65,15 @@
 
 .newQuotes:focus {
   outline: none;
-  /* padding: 0.5rem; */
+}
+
+
+.allQuotes {
+  text-align: left;
+  color: #dadada;
+}
+
+.recordedQuote:hover {
+  color: #fff;
+  cursor: pointer;
 }

@@ -1,8 +1,12 @@
 let introForm = document.createElement('form');
+introForm.classList.add('introForm')
 introForm.addEventListener('submit', SubmitName);
+introForm.style.transition = "all 0.5s"
 
 let locationForm = document.createElement('form');
+locationForm.classList.add('locationForm')
 locationForm.addEventListener('submit', SubmitLocation);
+locationForm.style.transition = "all 0.5s"
 
 
 let userContainer = document.querySelector("[data-user=mainAcct]")
@@ -37,9 +41,9 @@ function HelloMessage() {
     
     let introduction = document.createElement('input');
     introduction.setAttribute('id', 'welcomeText')
-    // introduction.setAttribute('placeholder', 'Write Name Here')
     introduction.classList.add('userInput')
     introForm.appendChild(introduction);    
+
   } else {
     let introduction = document.createElement('h1');
     introduction.setAttribute('id', 'welcomeText')
@@ -50,10 +54,11 @@ function HelloMessage() {
 }
 
 function AskLocation() {
-  document.getElementById('locationLabel')?.remove()
-  document.getElementById('locationText')?.remove()
+ 
   let userLoc = localStorage.getItem("UserLocation");
   if (userLoc === null || userLoc.trim() === "") {
+    document.getElementById('locationLabel')?.remove()
+    document.getElementById('locationText')?.remove()
     let locLabel = document.createElement('h1');
     locLabel.setAttribute('id', 'locationLabel')
     locLabel.innerHTML = "Where are you located ?"
@@ -61,10 +66,13 @@ function AskLocation() {
     
     let location = document.createElement('input');
     location.setAttribute('id', 'locationText')
-    // location.setAttribute('placeholder', 'Write Name Here')
     location.classList.add('userInput')
     locationForm.appendChild(location);    
-  }  
+  } else {
+    locationForm.style.opacity = "0"
+    locationForm.style.height = "0"
+    locationForm.style.fontSize = "0"
+  }
 }
 
 function SubmitName(e) {    
@@ -74,7 +82,9 @@ function SubmitName(e) {
 }
 
 function SubmitLocation(e) {
-  localStorage.setItem("UserLocation", this.elements.locationText.value.toUpperCase());
+  localStorage.setItem("UserLocation", this.elements.locationText.value.toUpperCase());  
+  // locationForm.style.height = "0"
+  // locationForm.style.opacity = "0"
   e.preventDefault();
   AskLocation();
   getWeather();
