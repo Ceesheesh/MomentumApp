@@ -4,7 +4,7 @@ const loadScript = (src) =>  {
   document.body.appendChild(script)
 }
 
-document.body.style.backgroundColor = "#E3BC9A" //"#dedede" // remove when background color / design is decided
+// document.body.style.backgroundColor = "#E3BC9A" //"#dedede" // remove when background color / design is decided
 
 
 loadScript('./js/weather.js')

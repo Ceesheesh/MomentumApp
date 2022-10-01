@@ -5,6 +5,7 @@
 @import "./css/settings.css";
 @import "./css/quotes.css";
 @import "./css/daily.css";
+@import "./css/toDo.css";
 
 body {
   margin: 0;
@@ -14,6 +15,11 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
+  background-image: url("./Images/background3.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Poppins', sans-serif;
 }
 
 h1 {
