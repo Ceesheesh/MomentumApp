@@ -3,7 +3,7 @@ const loadScript = (src) =>  {
   script.src = src
   document.body.appendChild(script)
 }
-
+// temporary 
 // document.body.style.backgroundColor = "#E3BC9A" //"#dedede" // remove when background color / design is decided
 
 
