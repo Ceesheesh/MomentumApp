@@ -2,8 +2,7 @@
 //display form
 
 function openForm() {
-  let x = document.getElementById('myForm')
-  let y = document.getElementsByClassName('open-button');
+  let x = document.getElementById('myForm');
   if (x.style.display === "block") {
     x.style.display = "none";
   } else{
@@ -36,7 +35,7 @@ function openForm() {
     tasks.forEach(task => {
       const list = document.getElementById("ul-wrapper");
       const li = document.createElement("li");
-      li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" id="item"><input type="text" value="${task.task}" class="task" id="item-center" disabled="disabled"><button onclick="removeTask(this) id="item1">x</button>`;
+      li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" id="item"><input type="text" value="${task.task}" class="task" id="item-center" disabled="disabled"><button onclick="removeTask(this)" id="item1">x</button>`
       list.insertBefore(li, list.children[0]);
     });
     }
@@ -55,7 +54,7 @@ function openForm() {
 
       // create list item, add innerHTML and append to ul
       const li = document.createElement("li");
-      li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" id="item"><input type="text" value="${task.value}" class="task" id="item-center" disabled="disabled"><button onclick="removeTask(this)" id="item1">x</button>`;
+      li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" id="item"><input type="text" value="${task.value}" class="task" id="item-center" disabled="disabled"><button onclick="removeTask(this)" id="item1">x</button>`
       list.insertBefore(li, list.children[0]);
       // clear input
       task.value = "";
