@@ -31,7 +31,7 @@ document.getElementById('IoMdSettings')?.addEventListener('click', function() {
   if (settings) {
     settingsModal.style.minHeight = "30rem"    
     settingsNavigation.style.padding = "1rem 0.5rem"
-    settingsNavigation.style.fontSize = "";
+    settingsNavigation.style.fontSize = "0.75rem";
     [...document.getElementsByClassName('nav-items')].forEach(el => {
       el.style.paddingBottom = "0.3rem";
     })    
