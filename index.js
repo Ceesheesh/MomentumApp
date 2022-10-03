@@ -14,7 +14,7 @@ loadScript('./js/daily.js')
 loadScript('./js/userAccount.js')
 loadScript('./js/settings.js')
 loadScript('./js/quotes.js')
-
+loadScript('./js/todo.js')
 
 
 

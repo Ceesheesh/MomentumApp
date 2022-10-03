@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  list-style: none;
+}
+
+#toDocontainer{
+  position: fixed;
+  bottom: 2%;
+  right: 1%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 200px;
+}
+
+.todo-container {
+  width: 100%;
+  padding: 10px;
+  background-color: gray;
+  height: auto;
+}
+
+.open-button{
+  text-align: right;
+  background-color: rgba(0, 0, 0, 0);
+  border: none;
+  color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.app{
+  height: 500px;
+}
+.todo-input{
+  border: 1px solid black;
+  width: 100%;
+}
+
+#ul-wrapper{
+
+  width: 100%;
+  margin-bottom: 10px;
+}
+.todo-container li{ 
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 2px;
+
+}
+
+.check {
+  width: 10px;
+  margin-right: 5px;
+}
+
+#item-center{
+  flex-grow: 1;
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 2 10px;
+}
+
+
+/* .open-button {
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+  cursor: pointer;
+  opacity: 1;
+  position: absolute;
+  bottom: 2%;
+  right: 1%;
+  font-size: 1.2rem;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+  transform: rotateX(-90%);
+  z-index: 9;
+  width: 250px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+}
+
+#app{
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 15px;
+  border-radius: 5px;
+}
+
+
+
+
