@@ -12,43 +12,60 @@
 #IoMdSettings {
   transition: 0.5s;
   margin-top: 1rem;
+  filter: brightness(0.5)
 }
 
 #IoMdSettings:hover {
-  cursor: pointer;
+  cursor: pointer;  
 }
 
 .openSettings {
-  transform: rotate(45deg) scale(1.2)
+  transform: rotate(45deg) scale(1.2);
+  color: #fff;
+  filter: brightness(2) !important;
 }
 
 .settingsModal {
   padding: 0;
   min-height: 0;
   width: 30rem;
-  background-color: #000;
+  background-color:  rgba(0,0,0,0.5);;
   border-radius: 0.5rem;
-  opacity: 0.8;
   transition: all 0.4s;
+}
+
+.nav-items {
+  user-select: none;
 }
 
 .nav-items:hover {
   cursor: pointer;
+  color: #fff;
   filter:brightness(2);
+  transform: scale(1.1);
 }
 
-.add-quotes-btn {
+.nav-items:active { 
+  transform: scale(1);
+}
+
+.add-btn {
   border-radius: 3rem;
   background-color: #2cbc3d;
-  color: #fff;
+  color: #dadada;
   padding: 0.5rem;
-  display: none;  
+  font-size: 1rem;
+  width: 13rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  filter: drop-shadow(2px 4px 6px black)
 }
 
 
-.add-quotes-btn:hover {
-  cursor:pointer;
-}
+.add-btn:hover {
+  cursor: pointer;
+  background-color: #27a736;
+  color: #fff;}
 
 .newQuotes {
   background-color: transparent;
@@ -58,8 +75,7 @@
   text-align: center;
   font-size: 1rem;
   width: 100%;
-  padding: 0;
-  display: none;
+  padding: 0.4rem;
   box-sizing: border-box;
 }
 
@@ -73,7 +89,52 @@
   color: #dadada;
 }
 
+.recordedQuote{
+  padding: 0.5rem 0 ;
+  border-bottom: 1px solid rgb(255,255,255, 0.2);
+  margin-bottom: 0.5rem;
+}
+
 .recordedQuote:hover {
   color: #fff;
+  cursor: pointer;  
+}
+
+.imagePanel {
+  width: 9rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-right: 1rem;
+  border-radius: 0.63rem;
+  opacity: 2;
+}
+
+.imagePanel:hover {
   cursor: pointer;
+  transform: scale(1.2)
+}
+
+.imagePanel:active {
+  transform: scale(0.8)
+}
+
+.imageGallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.hideTypeFile {
+  display: none;
+}
+
+.showTypeFile {
+  display: inline-block;
+}
+
+.settingsNavigation {
+  border-right: 1px solid rgb(255,255,255, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
 }

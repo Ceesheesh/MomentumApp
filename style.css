@@ -15,11 +15,14 @@ body {
   align-items: center;
   justify-content: center;
   color: #fff;
-  background-image: url("./Images/background3.jpg");
+  background-color: #646161;
+  /* background-image: url("./Images/background3.jpg"); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   font-family: 'Poppins', sans-serif;
+  transition: all 0.4s ;
+  user-select: none;
 }
 
 h1 {
