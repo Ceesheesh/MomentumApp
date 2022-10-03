@@ -1,6 +1,5 @@
-getWeather()
-
-function getWeather() {
+GetWeather();
+function GetWeather() {
   let user = localStorage.getItem("UserName");
   if (user === null || user.trim() === "") return;
   let location = localStorage.getItem("UserLocation");
@@ -16,16 +15,17 @@ function getWeather() {
       weatherCity.innerHTML = data.name;
 
       let weatherTemp = document.createElement('label');
-      weatherTemp.innerHTML = data.main.temp;
+      weatherTemp.innerHTML = `${data.main.temp}\u00B0`;
 
       let weatherDesc = document.createElement('label');
       weatherDesc.innerHTML = data.weather[0].description;
 
       let weatherIcon = document.createElement('img');
-      weatherIcon.setAttribute('src',"http://openweathermap.org/img/wn/"+ data.weather[0].icon +"@2x.png")
+      weatherIcon.setAttribute('src',"http://openweathermap.org/img/wn/"+ data.weather[0].icon +"@2x.png");
+      weatherIcon.classList.add('weatherIcon');    
 
-      weatherContainer?.appendChild(weatherCity);
       weatherContainer?.appendChild(weatherTemp);
+      weatherContainer?.appendChild(weatherCity);      
       weatherContainer?.appendChild(weatherDesc);
       weatherContainer?.appendChild(weatherIcon);
     })
