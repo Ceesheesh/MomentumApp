@@ -1,38 +1,42 @@
 let dailyForm = document.createElement('form');
-dailyForm.classList.add("formDailyFocus");
+dailyForm.classList.add("dailyForm");
 dailyForm.addEventListener('submit', SubmitDaily);
 let dailyContainer = document.querySelector("[data-daily=dailyContainer]")
 dailyContainer?.appendChild(dailyForm);
 let svgContainer = document.getElementById('svgContainer');
 svgContainer.children[0].style.transition = "0.5s"
 
-const appreciationArr = ["Nice", "Good job", "Great work", "Way to go"]
+const appreciationArr = ["Nice", "Good job", "Great work", "Way to go"];
 DailyTask();
 
 function DailyTask() {
-  document.getElementById('dailyTask')?.remove()
-  document.getElementById('dailyLabel')?.remove()
-  document.getElementById('dailyCompletion')?.remove()
-  document.querySelector("[data-congratulate=accomplishments]")?.remove()
-  let dailyTask = localStorage.getItem("DailyTask");
+  document.getElementById('dailyTask')?.remove();
+  document.getElementById('dailyLabel')?.remove();
+  document.getElementById('dailyCompletion')?.remove();
+  document.querySelector("[data-congratulate=accomplishments]")?.remove();
+  let dailyTask = localStorage.getItem("DailyTask"); 
+
+  let location = localStorage.getItem("UserLocation");
+  if (location === null || location.trim() === "") return;
+  
   if (dailyTask  === null || dailyTask?.trim() === "") {
+    dailyForm.style.opacity = "1";
     let labelDaily = document.createElement('h1');
-    labelDaily.setAttribute('id', 'dailyLabel')
+    labelDaily.setAttribute('id', 'dailyLabel');
     labelDaily.innerHTML = 'What is your main focus today ?';
-    labelDaily.classList.add('focusLabel')
+    labelDaily.classList.add('focusLabel');
     dailyForm?.appendChild(labelDaily);
 
     let dailyTask = document.createElement('input');
     dailyTask.setAttribute('id', 'dailyTask');
-    // dailyTask.setAttribute('placeholder', 'Write Task Here');
-    dailyTask.classList.add('userInput')
+    dailyTask.classList.add('userInput');
     dailyForm?.appendChild(dailyTask);
 
-    dailyForm.classList.add('flex-column')
-    dailyForm.classList.remove('flex-row')
-
+    dailyForm.classList.add('flex-column');
+    dailyForm.classList.remove('flex-row');
 
   } else {
+    dailyForm.style.opacity = "1";
     let dailyChkbox = document.createElement('input');
     dailyChkbox.setAttribute('type', 'checkbox');
     dailyChkbox.setAttribute('id', 'dailyCompletion')
@@ -61,7 +65,8 @@ function DailyTask() {
 function SubmitDaily(e) {      
   localStorage.setItem("DailyTask", this.elements.dailyTask.value.toUpperCase());
   e.preventDefault();
-  DailyTask();
+  dailyForm.style.opacity = "0";
+  setTimeout(DailyTask, 1000);
 }
 
 function FinishedDaily(e) {    
@@ -86,6 +91,7 @@ function ClearDaily(e) {
   localStorage.setItem("DailyTask", "")
   svgContainer.style.opacity = "0"
   svgContainer.children[0].style.color = "#8e8e8e"
-  DailyTask();
+  dailyForm.style.opacity = "0";
+  setTimeout(DailyTask, 1000);
 }
 document.getElementById('svgContainer')?.addEventListener('click', ClearDaily)

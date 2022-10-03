@@ -1,4 +1,16 @@
-/* #dailyCompletion , #dailyTask {
-  transition: all 0.5s;
+.dailyForm {  
   opacity: 0;
-} */
+  transition: all 0.5s;
+  font-size: 1.5rem;
+}
+
+#svgContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#dailyTask {
+  font-size: 3.5rem;
+  margin: 0 1rem;
+}
