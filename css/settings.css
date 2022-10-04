@@ -28,7 +28,7 @@
 .settingsModal {
   padding: 0;
   min-height: 0;
-  width: 30rem;
+  width: 35rem;
   background-color:  rgba(0,0,0,0.5);;
   border-radius: 0.5rem;
   transition: all 0.4s;
@@ -56,6 +56,7 @@
   padding: 0.5rem;
   font-size: 1rem;
   width: 13rem;
+  height: 2rem;
   margin-bottom: 0.5rem;
   border: none;
   filter: drop-shadow(2px 4px 6px black)
@@ -65,7 +66,17 @@
 .add-btn:hover {
   cursor: pointer;
   background-color: #27a736;
-  color: #fff;}
+  color: #fff;
+  transform: scale(1.1);
+}
+
+.add-btn:active {
+  cursor: pointer;
+  background-color: #228e2e;
+  color: #fff;
+  transform: scale(1.0);
+}
+
 
 .newQuotes {
   background-color: transparent;
@@ -138,4 +149,29 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start; 
+}
+
+#getColor {  
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 3rem;
+  height: 3rem;
+  border: none;
+  background-color: transparent;
+  padding-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+#getColor::-webkit-color-swatch {
+  border-radius: 0.63rem;
+  border: none;
+}
+
+#getColor::-moz-color-swatch {
+  border-radius: 0.63rem;
+  border: none;
+}
+
+#getColor:hover {
+  cursor: pointer;
 }

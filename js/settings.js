@@ -12,6 +12,12 @@ settingsNavigation.classList.add('settingsNavigation')
 settingsNavigation.style.fontSize = "0";
 settingsModal.appendChild(settingsNavigation);
 
+let generalSettings = document.createElement('div');
+generalSettings.classList.add('nav-items');
+generalSettings.innerHTML = "General";
+generalSettings.addEventListener('click', LoadGeneralSettings);
+settingsNavigation.appendChild(generalSettings);
+
 let quotesSettings = document.createElement('div');
 quotesSettings.classList.add('nav-items');
 quotesSettings.innerHTML = "Quotes";
@@ -20,7 +26,7 @@ settingsNavigation.appendChild(quotesSettings);
 
 let backgroundSettings = document.createElement('div');
 backgroundSettings.classList.add('nav-items');
-backgroundSettings.innerHTML = "Background";
+backgroundSettings.innerHTML = "Photos";
 backgroundSettings.addEventListener('click', LoadBackgroundSettings);
 settingsNavigation.appendChild(backgroundSettings);
 
@@ -30,12 +36,12 @@ document.getElementById('IoMdSettings')?.addEventListener('click', function() {
 
   if (settings) {
     settingsModal.style.minHeight = "30rem"    
-    settingsNavigation.style.padding = "1rem 0.5rem"
-    settingsNavigation.style.fontSize = "0.75rem";
+    settingsNavigation.style.padding = "1rem 1.5rem"
+    settingsNavigation.style.fontSize = "1.1rem";
     [...document.getElementsByClassName('nav-items')].forEach(el => {
       el.style.paddingBottom = "0.3rem";
     })    
-    LoadQuoteSettings();
+    LoadGeneralSettings();
   } else {
     settingsModal.style.minHeight = "0" 
     settingsNavigation.style.padding = "0"
@@ -45,14 +51,100 @@ document.getElementById('IoMdSettings')?.addEventListener('click', function() {
     })
     RemoveRemovableContent();
   }
-});
+}); 
+
+function LoadGeneralSettings() {
+  RemoveRemovableContent();
+  let settingsContent = AddRemovableContent();
+  settingsContent.classList.add('flex-column');
+  settingsContent.style.padding = "1.5rem"
+ 
+  let clearPhoto = document.createElement('button');
+  clearPhoto.classList.add('add-btn');
+  clearPhoto.style.fontSize = "0.7rem";
+  clearPhoto.style.width = "10rem"
+  clearPhoto.innerHTML = "Clear Custom Photos";
+  clearPhoto.addEventListener('click', () => { 
+    localStorage.removeItem("CustomBackground") 
+    RandomBackground();
+  })
+
+  let clearQuotes = document.createElement('button');
+  clearQuotes.classList.add('add-btn');
+  clearQuotes.style.fontSize = "0.7rem";
+  clearQuotes.style.width = "10rem"
+  clearQuotes.innerHTML = "Clear All Quotes";
+  clearQuotes.addEventListener('click', () => { 
+    localStorage.removeItem("Quotes")    
+    document.querySelector("[data-quotes=displayQuote]").innerHTML = "";
+  })
+
+  let colorConfig = document.createElement('div');  
+  colorConfig.classList.add('flex-row');
+  colorConfig.style.justifyContent = "space-between";
+
+  let setColor = document.createElement('button');
+  setColor.classList.add('add-btn');
+  setColor.style.fontSize = "0.7rem";
+  setColor.style.width = "10rem"
+  setColor.innerHTML = "Set Text Color";
+  setColor.addEventListener('click', () => { 
+    let selectedColor = `${document.getElementById('getColor').value}`;
+    localStorage.setItem('ColorConfig',  `${selectedColor}`)
+    SetTextColor();
+  }) 
+
+  let getColor = document.createElement('input');
+  getColor.setAttribute('type', 'color');
+  let custTextColor = localStorage.getItem("ColorConfig");
+  custTextColor === null || custTextColor.trim() === "" ? getColor.setAttribute('value', '#ffffff') : getColor.setAttribute('value', `${custTextColor}`);
+  getColor.setAttribute('id', 'getColor');  
+  
+  colorConfig.appendChild(setColor);
+  colorConfig.appendChild(getColor);
+
+  let locationConfig = document.createElement('div');  
+  locationConfig.classList.add('flex-row');
+  locationConfig.style.justifyContent = "space-between";
+
+  let newLocation = document.createElement('label');
+  newLocation.style.fontSize = "1rem";
+  newLocation.innerHTML = "Location";
+
+  let changeLocation = document.createElement('input');
+  changeLocation.classList.add('userInput');
+  changeLocation.setAttribute('placeholder', 'Type your new location')
+  changeLocation.style.fontSize = "1rem";
+  changeLocation.addEventListener('keyup', function(e) {
+    if (e.keyCode !== 13) return
+    let currentLocation = localStorage.getItem("UserLocation");
+    if (currentLocation === null || currentLocation.trim() === "") return;
+    localStorage.setItem("UserLocation",this.value)    
+    GetWeather();
+  })
+
+  locationConfig.appendChild(newLocation);
+  locationConfig.appendChild(changeLocation);
+
+  settingsContent.appendChild(clearPhoto);
+  settingsContent.appendChild(CreateDivider());
+
+  settingsContent.appendChild(clearQuotes);
+  settingsContent.appendChild(CreateDivider());
+
+  settingsContent.appendChild(colorConfig);
+  settingsContent.appendChild(CreateDivider());
+
+  settingsContent.appendChild(locationConfig);
+  settingsContent.appendChild(CreateDivider());
+
+
+  settingsModal.appendChild(settingsContent);
+}
 
 function LoadQuoteSettings() {
   RemoveRemovableContent();
-  let settingsContent = document.createElement('div');
-  settingsContent.setAttribute('data-removable', 'RemovableContent')
-  settingsContent.style.padding = "0.5rem 0.5rem"
-  settingsContent.style.width= "100%"
+  let settingsContent = AddRemovableContent();
 
   let addQuotes = document.createElement('button');
   addQuotes.innerHTML = "Add Quotes";
@@ -75,43 +167,53 @@ function LoadQuoteSettings() {
 }
 
 function PushNewQuotes(e) {
-  let newQuote = document.querySelector("[data-quote=newQuotes]")
+  let newQuote = document.querySelector("[data-quote=newQuotes]");
 
-  let quotesAr = localStorage.getItem("Quotes") === null || localStorage.getItem("Quotes")?.trim() === "" ? [] : JSON.parse(localStorage.getItem("Quotes"))
+  if (newQuote.value === null || newQuote.value.trim() === "") return;
+
+  let quotesAr =
+    localStorage.getItem("Quotes") === null ||
+    localStorage.getItem("Quotes")?.trim() === ""
+      ? []
+      : JSON.parse(localStorage.getItem("Quotes"));
+      
   quotesAr.push(newQuote.value);
-  localStorage.setItem('Quotes', JSON.stringify(quotesAr));
+  localStorage.setItem("Quotes", JSON.stringify(quotesAr));
   document.querySelector("[data-quote=newQuotes]").value = "";
-  ListAllQuotes()
+  LoadQuoteSettings();
   GenerateRandomQuote();
 }
 
 function ListAllQuotes() {
  let AllQuotes = document.querySelector("[data-quote=AllQuotes]")
   let quotesArr = JSON.parse(localStorage.getItem("Quotes"));
-  AllQuotes.innerHTML =  
-    "<div>" +
-    quotesArr
-      .map(function (quote) {
-        return `<div class=recordedQuote
-          onclick= "setQuote('${quote}')"            
-        >  "${quote}"  </div>`;
-      })
-      .join("") +
-    "</div>"; 
+
+  let quotesContainer = document.createElement('div');
+  AllQuotes.appendChild(quotesContainer);
+  quotesArr.forEach(function (quote) {    
+    quotesComparment(quotesContainer, quote);    
+  })
+
+}
+
+function quotesComparment(quotesContainer, quote) {
+  let quoteDiv = document.createElement('div');
+  quoteDiv.classList.add('recordedQuote');
+  quoteDiv.innerHTML = `"${quote}"`;
+  quoteDiv.addEventListener('click', function () { document.querySelector("[data-quotes=displayQuote]").innerHTML = `"${quote}"`})
+  quotesContainer.appendChild(quoteDiv);
 }
 
 function LoadBackgroundSettings() {
   RemoveRemovableContent();
-  let settingsContent = document.createElement('div');
-  settingsContent.setAttribute('data-removable', 'RemovableContent')
-  settingsContent.style.padding = "0.5rem 0.5rem"
-  settingsContent.style.width= "100%"
+  let settingsContent = AddRemovableContent();
+  settingsContent.style.padding = "1rem 1.5rem"
 
   let defaultBackgroundLabel = document.createElement('label');
   defaultBackgroundLabel.innerHTML = "Public Wallpapers"
+  defaultBackgroundLabel.style.fontSize = "1rem";
   settingsContent.appendChild(defaultBackgroundLabel);
   settingsModal.appendChild(settingsContent);
-
   
   let publicList = document.createElement('div')
   publicList.setAttribute('data-background', 'PublicBackground')
@@ -119,9 +221,10 @@ function LoadBackgroundSettings() {
   ListPublicBackground();
 
   let addPhoto = document.createElement('label');
-  addPhoto.innerHTML = "Add Photo";
+  addPhoto.innerHTML = "Add Custom Photo";
   addPhoto.classList.add('add-btn');
   addPhoto.classList.add('showTypeFile');
+  addPhoto.style.padding = "0.25rem"
  
   let typeFile = document.createElement('input');
   typeFile.setAttribute('type','file');
@@ -148,10 +251,10 @@ function LoadCustomWallpaper() {
 
       customBackgroundArr.push(upload);
       localStorage.setItem('CustomBackground', JSON.stringify(customBackgroundArr));
-      ListCustomBackground();
+      LoadBackgroundSettings(); 
     });
-    reader.readAsDataURL(this.files[0]);
-    
+  reader.readAsDataURL(this.files[0]);
+  
 }
 
 function ListPublicBackground() {
@@ -164,17 +267,23 @@ function ListPublicBackground() {
   let publicBackground = document.querySelector(
     "[data-background=PublicBackground]"
   );
-  publicBackground.innerHTML =
-    "<div class='imageGallery'>" +
-    defaultBackgroundArr
-      .map(function (imgSrc) {
-        return (
-        `<div class="flex-column"  onclick="setWallpaper('${imgSrc}')">
-          <img class="imagePanel" src="./Images/${imgSrc}"></img> 
-         </div>`);
-      })
-      .join("") +
-    "</div>";
+  
+  let imageGallery = document.createElement('div');
+  imageGallery.classList.add('imageGallery')
+  publicBackground?.appendChild(imageGallery);
+  defaultBackgroundArr.forEach(function (imgSrc) {    
+    defaultImagePanel(imageGallery,imgSrc);    
+  })
+ }
+
+ function defaultImagePanel(imgGallery,imgSrc) {
+  let imageDiv = document.createElement('div');
+  imageDiv.classList.add('flex-column');
+  let imageFile = document.createElement('img');
+  imageFile.classList.add("imagePanel")
+  imageFile.setAttribute('src', `./Images/${imgSrc}`);
+  imageFile.addEventListener('click', () => { document.body.style.backgroundImage = `url('./Images/${imgSrc}')`})
+  imgGallery.appendChild(imageFile);
  }
 
  function ListCustomBackground() {
@@ -183,31 +292,43 @@ function ListPublicBackground() {
   let customBackground = document.querySelector(
     "[data-background=customBackground]"
   );
-  customBackground.innerHTML =
-    "<div class='imageGallery'>" +
-    customBackgroundArr
-      .map(function (imgSrc) {
-        return (
-        `<div class="flex-column" onclick="customWallpaper('${imgSrc}') ">
-          <img class="imagePanel" src="${imgSrc}"></img> 
-         </div>`);
-      })
-      .join("") +
-    "</div>";
+  
+  let imageGallery = document.createElement('div');
+  imageGallery.classList.add('imageGallery')
+  customBackground?.appendChild(imageGallery);
+  customBackgroundArr.forEach(function (imgSrc) {    
+    customImagePanel(imageGallery,imgSrc);    
+  })
  }
 
-function setQuote(quote) {
-  document.querySelector("[data-quotes=displayQuote]").innerHTML = `"${quote}"`;
-}
-
-function customWallpaper(imgName) {
-  document.body.style.backgroundImage = `url('${imgName}')`
-}
-
-function setWallpaper(imgName) {
-  document.body.style.backgroundImage = `url('./Images/${imgName}')`
-}
+ function customImagePanel(imgGallery,imgSrc) {
+  let imageDiv = document.createElement('div');
+  imageDiv.classList.add('flex-column');
+  let imageFile = document.createElement('img');
+  imageFile.classList.add("imagePanel")
+  imageFile.setAttribute('src', `${imgSrc}`);
+  imageFile.addEventListener('click', () => { document.body.style.backgroundImage = `url(${imgSrc})`})
+  imgGallery.appendChild(imageFile);
+ }
 
 function RemoveRemovableContent() {
   document.querySelector("[data-removable=RemovableContent]")?.remove();
+}
+
+function AddRemovableContent() {
+  let settingsContent = document.createElement('div');
+  settingsContent.setAttribute('data-removable', 'RemovableContent')
+  settingsContent.style.padding = "0.5rem 0.5rem"
+  settingsContent.style.width= "100%"
+  return settingsContent
+}
+
+function CreateDivider() {
+  let divider = document.createElement('div')
+  divider.style.height = "0";
+  divider.style.minWidth = "100%";
+  divider.style.borderBottom = "1px solid rgb(255,255,255, 0.2)";
+  divider.style.marginTop = "1.3rem";
+  divider.style.marginBottom = "1.5rem";
+  return divider;
 }

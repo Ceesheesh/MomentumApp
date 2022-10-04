@@ -1,10 +1,12 @@
 let introForm = document.createElement('form');
 introForm.classList.add('introForm')
+introForm.setAttribute('id','introForm')
 introForm.addEventListener('submit', SubmitName);
 introForm.style.transition = "all 0.5s"
 
 let locationForm = document.createElement('form');
 locationForm.classList.add('locationForm')
+locationForm.setAttribute('id','locationForm')
 locationForm.addEventListener('submit', SubmitLocation);
 
 
@@ -13,6 +15,7 @@ userContainer?.appendChild(introForm);
 userContainer?.appendChild(locationForm);
 
 HelloMessage();
+
 
 function HelloMessage() {  
   introForm.style.opacity = "1"
@@ -31,8 +34,7 @@ function HelloMessage() {
     greeting += " Noon"
   }
   let user = localStorage.getItem("UserName");
-  if (user === null || user.trim() === "") {
-  
+  if (user === null || user.trim() === "") {  
     
     let introLabel = document.createElement('h1');
     introLabel.setAttribute('id', 'welcomeLabel')
@@ -51,7 +53,7 @@ function HelloMessage() {
     introForm.appendChild(introduction);
     introForm.style.opacity = "1"
   }
-
+  SetTextColor();
 }
 
 function AskLocation() {
@@ -62,16 +64,19 @@ function AskLocation() {
     locationForm.style.opacity = "1"
     document.getElementById('locationLabel')?.remove()
     document.getElementById('locationText')?.remove()
+
     let locLabel = document.createElement('h1');
     locLabel.setAttribute('id', 'locationLabel')
     locLabel.innerHTML = "Where are you located ?"
     locationForm.appendChild(locLabel)
     
     let location = document.createElement('input');
-    location.setAttribute('id', 'locationText')
-    location.classList.add('userInput')
-    locationForm.appendChild(location);    
+    location.setAttribute('id', 'locationText');
+    location.classList.add('userInput');
+    locationForm.appendChild(location);
+   
   } 
+  SetTextColor();
 }
 
  function SubmitName(e) {    
