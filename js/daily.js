@@ -1,5 +1,6 @@
 let dailyForm = document.createElement('form');
 dailyForm.classList.add("dailyForm");
+dailyForm.setAttribute('id','dailyForm')
 dailyForm.addEventListener('submit', SubmitDaily);
 let dailyContainer = document.querySelector("[data-daily=dailyContainer]")
 dailyContainer?.appendChild(dailyForm);
@@ -7,6 +8,8 @@ let svgContainer = document.getElementById('svgContainer');
 svgContainer.children[0].style.transition = "0.5s"
 
 const appreciationArr = ["Nice", "Good job", "Great work", "Way to go"];
+document.getElementById('svgContainer').addEventListener('click', ClearDaily)
+// document.getElementById('AiTwotoneDelete').addEventListener('click', function() {alert('test2')})
 DailyTask();
 
 function DailyTask() {
@@ -29,7 +32,7 @@ function DailyTask() {
 
     let dailyTask = document.createElement('input');
     dailyTask.setAttribute('id', 'dailyTask');
-    dailyTask.classList.add('userInput');
+    dailyTask.classList.add('userInput');    
     dailyForm?.appendChild(dailyTask);
 
     dailyForm.classList.add('flex-column');
@@ -60,6 +63,9 @@ function DailyTask() {
     dailyForm.classList.add('flex-row')
     dailyForm.classList.remove('flex-column')
   }
+  try {
+    SetTextColor();
+  } catch{}
 }
 
 function SubmitDaily(e) {      
@@ -94,4 +100,3 @@ function ClearDaily(e) {
   dailyForm.style.opacity = "0";
   setTimeout(DailyTask, 1000);
 }
-document.getElementById('svgContainer')?.addEventListener('click', ClearDaily)
