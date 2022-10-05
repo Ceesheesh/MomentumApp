@@ -85,10 +85,12 @@ function FinishedDaily(e) {
     doneTask.innerHTML = `${appreciationArr[Math.floor(Math.random() * appreciationArr.length)]}!`;
     doneTask.style.opacity = "1"
     svgContainer.children[0].style.color = "#2cbc3d"
+    dailyTask.style.opacity = "0.5"
   } else {
     task.style.textDecoration = '';
     doneTask.style.opacity = "0";
     svgContainer.children[0].style.color = "#8e8e8e"
+    dailyTask.style.opacity = "1"
   }
 }
 
