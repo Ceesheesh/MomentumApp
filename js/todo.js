@@ -35,7 +35,7 @@ function openForm() {
     tasks.forEach(task => {
       const list = document.getElementById("ul-wrapper");
       const li = document.createElement("li");
-      li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" id="item"><input type="text" value="${task.task}" class="task" id="item-center" disabled="disabled"><button onclick="removeTask(this)" id="item1">x</button>`
+      li.innerHTML = `<input type="checkbox" class="check" id="item_0"><input type="text" value="${task.task}" class="task" id="item-center" disabled="disabled"><i class="fa-regular fa-circle-xmark" onclick="removeTask(this)" id="item_1"></i>`
       list.insertBefore(li, list.children[0]);
     });
     }
@@ -54,7 +54,7 @@ function openForm() {
 
       // create list item, add innerHTML and append to ul
       const li = document.createElement("li");
-      li.innerHTML = `<input type="checkbox" onclick="taskComplete(this)" class="check" id="item"><input type="text" value="${task.value}" class="task" id="item-center" disabled="disabled"><button onclick="removeTask(this)" id="item1">x</button>`
+      li.innerHTML = `<input type="checkbox" class="check" id="item_0"><input type="text" value="${task.value}" class="task" id="item-center" disabled="disabled"><i class="fa-regular fa-circle-xmark" onclick="removeTask(this)" id="item_1"></i>`
       list.insertBefore(li, list.children[0]);
       // clear input
       task.value = "";
@@ -75,3 +75,9 @@ function openForm() {
       localStorage.setItem("tasks", JSON.stringify(tasks));
       event.parentElement.remove();
     }
+
+
+    
+    // On double click feature
+    // let removeEntry = document.getElementById('item_center');
+    // entry.addEventListener('dblclick', removeTask)
