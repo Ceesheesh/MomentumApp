@@ -91,7 +91,9 @@ function LoadGeneralSettings() {
   setColor.addEventListener('click', () => { 
     let selectedColor = `${document.getElementById('getColor').value}`;
     localStorage.setItem('ColorConfig',  `${selectedColor}`)
+    try {
     SetTextColor();
+    } catch {}
   }) 
 
   let getColor = document.createElement('input');
@@ -102,6 +104,30 @@ function LoadGeneralSettings() {
   
   colorConfig.appendChild(setColor);
   colorConfig.appendChild(getColor);
+
+  let fontConfig = document.createElement('div');  
+  fontConfig.classList.add('flex-row');
+  fontConfig.style.justifyContent = "space-between";
+
+  let fontLabel = document.createElement('label');
+  fontLabel.style.fontSize = "1rem";
+  fontLabel.innerHTML = "Text Font";
+
+  let changeFont = document.createElement('input');
+  changeFont.classList.add('userInput');
+  changeFont.setAttribute('placeholder', 'Type your desired font');
+  changeFont.value = `${localStorage.getItem("FontConfig") === null || localStorage.getItem("FontConfig")?.trim() === "" ? "Poppins" : localStorage.getItem("FontConfig") }`;
+  changeFont.style.fontSize = "1rem";
+  changeFont.addEventListener('keyup', function(e) {
+    if (e.keyCode !== 13) return
+    localStorage.setItem("FontConfig", this.value);
+    this.value.trim() === "" && (changeFont.value = "Poppins");
+    document.body.style.fontFamily = `${this.value},sans-serif`; 
+    
+  })
+
+  fontConfig.appendChild(fontLabel);
+  fontConfig.appendChild(changeFont);
 
   let locationConfig = document.createElement('div');  
   locationConfig.classList.add('flex-row');
@@ -114,6 +140,7 @@ function LoadGeneralSettings() {
   let changeLocation = document.createElement('input');
   changeLocation.classList.add('userInput');
   changeLocation.setAttribute('placeholder', 'Type your new location')
+  changeLocation.value = `${localStorage.getItem("UserLocation") === null ? "" : localStorage.getItem("UserLocation")}`;
   changeLocation.style.fontSize = "1rem";
   changeLocation.addEventListener('keyup', function(e) {
     if (e.keyCode !== 13) return
@@ -135,9 +162,11 @@ function LoadGeneralSettings() {
   settingsContent.appendChild(colorConfig);
   settingsContent.appendChild(CreateDivider());
 
-  settingsContent.appendChild(locationConfig);
+  settingsContent.appendChild(fontConfig);
   settingsContent.appendChild(CreateDivider());
 
+  settingsContent.appendChild(locationConfig);
+  settingsContent.appendChild(CreateDivider());
 
   settingsModal.appendChild(settingsContent);
 }
@@ -224,7 +253,6 @@ function LoadBackgroundSettings() {
   addPhoto.innerHTML = "Add Custom Photo";
   addPhoto.classList.add('add-btn');
   addPhoto.classList.add('showTypeFile');
-  addPhoto.style.padding = "0.25rem"
  
   let typeFile = document.createElement('input');
   typeFile.setAttribute('type','file');
@@ -318,6 +346,7 @@ function RemoveRemovableContent() {
 function AddRemovableContent() {
   let settingsContent = document.createElement('div');
   settingsContent.setAttribute('data-removable', 'RemovableContent')
+  settingsContent.setAttribute('class', 'removableContent')
   settingsContent.style.padding = "0.5rem 0.5rem"
   settingsContent.style.width= "100%"
   return settingsContent
@@ -332,3 +361,4 @@ function CreateDivider() {
   divider.style.marginBottom = "1.5rem";
   return divider;
 }
+

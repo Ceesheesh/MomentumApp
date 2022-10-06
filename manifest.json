@@ -4,11 +4,11 @@
     "version": "1.0.0",
     "manifest_version": 3,
     "icons":{
-        "128": "./images/Icon_128.png"       
+        "128": "./icons/Icon_128.png"       
     },  
     "action":{       
         "default_icons":{
-            "128": "./images/Icon_128.png"
+            "128": "./icons/Icon_128.png"
         } 
     },
     "permissions":[
