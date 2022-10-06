@@ -1,10 +1,9 @@
-let defaultBackgroundArr = ['background2.jpg', 'background3.jpg']
+let defaultBackgroundArr = ['background1.jpg', 'background2.jpg', 'background3.jpg']
 
 document.addEventListener("contextmenu", (event) => event.preventDefault());
 RandomBackground();
 
 function RandomBackground() {  
-
   let customBackgroundArr = localStorage.getItem("CustomBackground") === null || localStorage.getItem("CustomBackground")?.trim() === "" ? [] : JSON.parse(localStorage.getItem("CustomBackground"));
 
   if (customBackgroundArr.length > 0 ) {
@@ -23,7 +22,7 @@ function SetTextColor() {
   let introFrom = document.querySelector("#introForm .userInput");
   let dailyForm = document.querySelector("#dailyForm .userInput");
   let locationForm = document.querySelector("#locationForm .userInput");
-  
+  let editFocus = document.querySelector("#editFocus");
   
   try {
   custTextColor === null || custTextColor.trim() === ""
@@ -54,7 +53,13 @@ function SetTextColor() {
       ? (dailyForm.style.borderBottom = "2px solid #fff")
       : (dailyForm.style.borderBottom = `2px solid ${custTextColor}`);  
     } catch {}
-  
+
+  try { 
+    custTextColor === null || custTextColor.trim() === ""
+      ? (editFocus.style.borderBottom = "2px solid #fff")
+      : (editFocus.style.borderBottom = `2px solid ${custTextColor}`);  
+    } catch {}
+
     try {
     custTextColor === null || custTextColor.trim() === ""
       ? (introFrom.style.borderBottom = "2px solid  #fff")
@@ -66,4 +71,19 @@ function SetTextColor() {
       ? (locationForm.style.borderBottom = "2px solid #fff")
       : (locationForm.style.borderBottom = `2px solid ${custTextColor}`);
     } catch {}
+    
+    try {
+      custTextColor === null || custTextColor.trim() === ""
+        ? (editFocus.style.borderBottom = "2px solid #fff")
+        : (editFocus.style.borderBottom = `2px solid ${custTextColor}`);
+      } catch {}
+    
 }
+
+SetTextFont();
+function SetTextFont() {
+  let customFont = localStorage.getItem("FontConfig");
+  customFont === null || customFont.trim() === "" && (customFont = "Poppins");
+  document.body.style.fontFamily = `${customFont}, sans-serif`
+}
+

@@ -8,8 +8,9 @@ let svgContainer = document.getElementById('svgContainer');
 svgContainer.children[0].style.transition = "0.5s"
 
 const appreciationArr = ["Nice", "Good job", "Great work", "Way to go"];
-document.getElementById('svgContainer').addEventListener('click', ClearDaily)
-// document.getElementById('AiTwotoneDelete').addEventListener('click', function() {alert('test2')})
+document.getElementById('AiTwotoneDelete').addEventListener('click', ClearDaily)
+document.getElementById('MdModeEdit').addEventListener('click', EditDaily)
+
 DailyTask();
 
 function DailyTask() {
@@ -40,11 +41,14 @@ function DailyTask() {
 
   } else {
     dailyForm.style.opacity = "1";
+    let dailyChkboxContainer = document.createElement('div');
+    dailyChkboxContainer.setAttribute('id', 'dailyCheckContainer')
     let dailyChkbox = document.createElement('input');
     dailyChkbox.setAttribute('type', 'checkbox');
     dailyChkbox.setAttribute('id', 'dailyCompletion')
     dailyChkbox.addEventListener('click', FinishedDaily)
-    dailyForm.appendChild(dailyChkbox);
+    dailyChkboxContainer.appendChild(dailyChkbox)
+    dailyForm.appendChild(dailyChkboxContainer);
 
     let daily = document.createElement('h1');
     daily.setAttribute('id', 'dailyTask')
@@ -85,11 +89,13 @@ function FinishedDaily(e) {
     doneTask.innerHTML = `${appreciationArr[Math.floor(Math.random() * appreciationArr.length)]}!`;
     doneTask.style.opacity = "1"
     svgContainer.children[0].style.color = "#2cbc3d"
+    svgContainer.children[1].style.color = "#8e8e8e"
     dailyTask.style.opacity = "0.5"
   } else {
     task.style.textDecoration = '';
     doneTask.style.opacity = "0";
     svgContainer.children[0].style.color = "#8e8e8e"
+    svgContainer.children[1].style.color = "#2cbc3d"
     dailyTask.style.opacity = "1"
   }
 }
@@ -101,4 +107,33 @@ function ClearDaily(e) {
   svgContainer.children[0].style.color = "#8e8e8e"
   dailyForm.style.opacity = "0";
   setTimeout(DailyTask, 1000);
+}
+
+function EditDaily(e) {
+ 
+  if (document.getElementById('dailyCompletion').checked ) return
+  let editFocus = document.createElement('input');
+  editFocus.classList.add('userInput');
+  editFocus.setAttribute('id', 'editFocus')
+  editFocus.value = document.getElementById('dailyTask')?.innerHTML;
+  document.getElementById('dailyTask').innerHTML = "";
+  document.getElementById('dailyTask').appendChild(editFocus);
+  document.getElementById('dailyCompletion').style.display = 'none';
+
+  try {
+    SetTextColor();
+  } catch {}
+
+  editFocus.addEventListener('keydown', function(e) { e.keyCode === 13 && e.preventDefault();})
+  editFocus.addEventListener('keyup', function(e) {
+    
+    if (e.keyCode !== 13) return
+    
+    localStorage.setItem("DailyTask", editFocus.value);
+    document.getElementById('dailyTask').innerHTML = editFocus.value;
+    editFocus.remove();
+    document.getElementById('dailyCompletion').style.display = 'block';
+
+  })
+  
 }

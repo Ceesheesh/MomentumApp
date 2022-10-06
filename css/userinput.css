@@ -31,7 +31,15 @@
 }
 
 
+#AiTwotoneDelete {
+  margin-right: 0.5rem;
+}
+
 #AiTwotoneDelete:hover {
+  cursor: pointer;
+}
+
+#MdModeEdit:hover {
   cursor: pointer;
 }
 

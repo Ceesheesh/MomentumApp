@@ -14,14 +14,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: transparent;
   background-color: #646161;
-  /* background-image: url("./Images/background3.jpg"); */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   font-family: 'Poppins', sans-serif;
-  transition: all 0.4s ;
+  transition: all 0.5s ;
   user-select: none;
 }
 
@@ -43,8 +42,3 @@ h1 {
   display: flex;
   flex-direction: column;
 }
-
-
-
-
-
