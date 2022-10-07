@@ -3,10 +3,16 @@ function initiateTodoList() {
   let todoContainer = document.getElementById('toDocontainer');
   let todoButton = document.createElement('button');
   todoButton.classList.add('open-button');
-  todoButton.addEventListener('click', createTodo)
+  todoButton.addEventListener('click', toggleTodoList)
   todoButton.textContent = "Todo";
   todoContainer.appendChild(todoButton);
 }
+
+function toggleTodoList() {
+  let todoModal = document.querySelector('.todo-modal');  
+  !todoModal ? createTodo() : removeTodo() ;
+}
+
 
 function closeButton() {
   let node = document.getElementById("AiFillCloseCircle");
@@ -25,6 +31,10 @@ function closeButton() {
   return closeButton;
 }
 
+function  removeTodo() {
+  document.querySelector('.todo-modal')?.remove();  
+}
+
 function createTodo() {
   let todoArea = document.getElementById('todoArea');
   let todoModal = document.createElement('div');
@@ -35,15 +45,19 @@ function createTodo() {
   let todoApp = document.createElement('div');
   todoModal.appendChild(todoApp);
   
-  let setTodoTitle  = document.createElement('input');
-  setTodoTitle.classList.add('userInput');
-  setTodoTitle.setAttribute('placeholder', 'Write title for todo list');
-  setTodoTitle.style.fontSize = "1rem";
-  setTodoTitle.style.width = "100%";
-  setTodoTitle.style.marginBottom = "1rem";
-  setTodoTitle.style.paddingBottom = "0.5rem";
-  setTodoTitle.addEventListener('keyup', SetTodoTitle);
-  todoApp.appendChild(setTodoTitle);
+
+  let todoTitleContainer = document.createElement('div');
+  todoTitleContainer.style.border = "none";
+  todoTitleContainer.style.borderBottom = "1px solid rgb(255,255,255, 0.2)";
+  todoTitleContainer.style.paddingBottom = "0.5rem";
+
+  todoApp.appendChild(todoTitleContainer);
+
+  let todoTitle = document.createElement('label');
+  todoTitle.setAttribute('data-todo', 'todoTitle');
+  todoTitle.setAttribute('name', 'todoTitle');
+  todoTitle.innerHTML = 'My Todo';
+  todoTitleContainer.appendChild(todoTitle);
 
   let wrapper = document.createElement('div');
   wrapper.setAttribute('data-wrapper','wrapper');
@@ -77,19 +91,6 @@ function SetTodoTitle(e) {
 
 //display form
 
-// function openForm() {
-//   let x = document.getElementById('myForm');
-//   if (x.style.display === "block") {
-//     x.style.display = "none";
-//   } else{
-//     x.style.display = "block";
-//   }
-// }
-
-// On app load, get all tasks from localStorage
-
-    // window.onload = loadTasks;
-
 //Reload tasks on Refresh  ---------------->
 
 function loadTasks() {
@@ -100,7 +101,8 @@ function loadTasks() {
   let todoTasks = document.createElement("div");
   todoTasks.style.maxHeight = "20rem";
   todoTasks.style.overflow = "auto";
-  todoTasks.style.marginBottom = "1rem";
+  todoTasks.style.marginBottom = "0.5rem";
+  todoTasks.style.marginTop = "0.5rem";
   todoTasks.setAttribute('name', 'removableTasks');
   todoWrapper.appendChild(todoTasks);
 
