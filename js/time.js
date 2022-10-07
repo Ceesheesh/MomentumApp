@@ -3,6 +3,13 @@ updateTime();
 
 function updateTime() {  
 
+  //save to local
+  //getvalue
+  // let militaryTime = localStorage.get(asdsad)
+
+  // militaryTime ? document.querySelector("[data-time=timeSwitch]").checked = true : document.querySelector("[data-time=timeSwitch]").checked = false
+
+
   let isMilitary = document.querySelector("[data-time=timeSwitch]")?.checked;
   let currentHr = new Date().getHours();
   let currentSec = new Date().getSeconds();
