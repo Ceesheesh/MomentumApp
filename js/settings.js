@@ -66,7 +66,11 @@ function LoadGeneralSettings() {
   clearPhoto.innerHTML = "Clear Custom Photos";
   clearPhoto.addEventListener('click', () => { 
     localStorage.removeItem("CustomBackground") 
-    RandomBackground();
+    // RandomBackground();
+    try {
+      CustomBackground();
+      RandomBackgroundGenerator();
+    } catch{}
   })
 
   let clearQuotes = document.createElement('button');
@@ -303,12 +307,16 @@ function LoadCustomWallpaper() {
   const reader = new FileReader();
     reader.addEventListener('load', () => {
       const upload = reader.result;
-      document.body.style.backgroundImage=`url(${upload})`;
-      
+      // document.body.style.backgroundImage=`url(${upload})`;      
       let customBackgroundArr = localStorage.getItem("CustomBackground") === null || localStorage.getItem("CustomBackground")?.trim() === "" ? [] : JSON.parse(localStorage.getItem("CustomBackground"))
 
       customBackgroundArr.push(upload);
       localStorage.setItem('CustomBackground', JSON.stringify(customBackgroundArr));
+      try {
+        DefaultBackground();
+        CustomBackground();
+        RandomBackgroundGenerator();
+      } catch{ }
       LoadBackgroundSettings(); 
     });
   reader.readAsDataURL(this.files[0]);
@@ -317,9 +325,9 @@ function LoadCustomWallpaper() {
 
 function ListPublicBackground() {
   let defaultBackgroundArr = [
+    "background1.jpg",
     "background2.jpg",
     "background3.jpg",
-    "background1.jpg",
   ];
 
   let publicBackground = document.querySelector(
@@ -329,18 +337,19 @@ function ListPublicBackground() {
   let imageGallery = document.createElement('div');
   imageGallery.classList.add('imageGallery')
   publicBackground?.appendChild(imageGallery);
-  defaultBackgroundArr.forEach(function (imgSrc) {    
-    defaultImagePanel(imageGallery,imgSrc);    
+  defaultBackgroundArr.forEach(function (imgSrc,idx) {    
+    defaultImagePanel(imageGallery,imgSrc,idx);    
   })
  }
 
- function defaultImagePanel(imgGallery,imgSrc) {
+ function defaultImagePanel(imgGallery,imgSrc,idx) {
   let imageDiv = document.createElement('div');
   imageDiv.classList.add('flex-column');
   let imageFile = document.createElement('img');
   imageFile.classList.add("imagePanel")
   imageFile.setAttribute('src', `./Images/${imgSrc}`);
-  imageFile.addEventListener('click', () => { document.body.style.backgroundImage = `url('./Images/${imgSrc}')`})
+  imageFile.setAttribute('data-ImgCode', `default${idx}`);
+  imageFile.addEventListener('click', ManualSettingWallpaper )
   imgGallery.appendChild(imageFile);
  }
 
@@ -354,18 +363,19 @@ function ListPublicBackground() {
   let imageGallery = document.createElement('div');
   imageGallery.classList.add('imageGallery')
   customBackground?.appendChild(imageGallery);
-  customBackgroundArr.forEach(function (imgSrc) {    
-    customImagePanel(imageGallery,imgSrc);    
+  customBackgroundArr.forEach(function (imgSrc,idx) {    
+    customImagePanel(imageGallery,imgSrc,idx);    
   })
  }
 
- function customImagePanel(imgGallery,imgSrc) {
+ function customImagePanel(imgGallery,imgSrc,idx) {
   let imageDiv = document.createElement('div');
   imageDiv.classList.add('flex-column');
   let imageFile = document.createElement('img');
   imageFile.classList.add("imagePanel")
   imageFile.setAttribute('src', `${imgSrc}`);
-  imageFile.addEventListener('click', () => { document.body.style.backgroundImage = `url(${imgSrc})`})
+  imageFile.setAttribute('data-ImgCode', `custom${idx}`);
+  imageFile.addEventListener('click', ManualSettingWallpaper )
   imgGallery.appendChild(imageFile);
  }
 
@@ -390,5 +400,16 @@ function CreateDivider() {
   divider.style.marginTop = "1.3rem";
   divider.style.marginBottom = "1.5rem";
   return divider;
+}
+
+function ManualSettingWallpaper() {
+  let allImagePanel = document.querySelectorAll('.backgroundPanel');
+  [...allImagePanel].forEach(panel => {
+    panel.style.opacity = "0";
+  })
+
+  let setPanel =  document.querySelector(`[data-background=${this.dataset.imgcode}]`)
+  setPanel.style.opacity = "1"
+
 }
 
