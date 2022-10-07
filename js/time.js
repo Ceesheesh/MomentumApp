@@ -1,6 +1,8 @@
 
 updateTime();
 
+window.onload = setToggle;
+
 function updateTime() {  
 
   //save to local
@@ -28,3 +30,19 @@ function updateTime() {
 document.querySelector("[data-time=timeSwitch]")?.addEventListener("click", updateTime)
 
 setInterval(updateTime, 1000);
+
+
+// 24 or 12 hour time format toggle
+
+function saveToggle(){
+  let setTime = document.querySelector("[data-time=timeSwitch]").checked;
+  localStorage.setItem("time", JSON.stringify(setTime));
+}
+
+function setToggle(){
+  let getTime = JSON.parse(localStorage.getItem("time"));
+  document.querySelector("[data-time=timeSwitch]").checked = getTime;
+}
+
+
+document.querySelector("[data-time=timeSwitch]")?.addEventListener("change", saveToggle)
