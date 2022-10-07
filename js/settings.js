@@ -153,6 +153,33 @@ function LoadGeneralSettings() {
   locationConfig.appendChild(newLocation);
   locationConfig.appendChild(changeLocation);
 
+  let userConfig = document.createElement('div');  
+  userConfig.classList.add('flex-row');
+  userConfig.style.justifyContent = "space-between";
+
+  let userLabel = document.createElement('label');
+  userLabel.style.fontSize = "1rem";
+  userLabel.innerHTML = "User Name";
+
+  let changeUser = document.createElement('input');
+  changeUser.classList.add('userInput');
+  changeUser.setAttribute('placeholder', 'New User Name Here');
+  changeUser.value = `${localStorage.getItem("UserName")}`;
+  changeUser.style.fontSize = "1rem";
+  changeUser.addEventListener('keyup', function(e) {
+    if (localStorage.getItem("UserName") === null || localStorage.getItem("UserName").trim() === "") return;
+    if (this.value.toUpperCase().trim() === "" ) return
+    if (e.keyCode !== 13) return
+    let prevUser = localStorage.getItem("UserName");
+    let currentWelcome = document.getElementById('welcomeText').innerHTML ;
+    localStorage.setItem("UserName", this.value.toUpperCase());
+    document.getElementById('welcomeText').innerHTML = currentWelcome.replace(`${prevUser}`, this.value.toUpperCase())
+    
+  })
+
+  userConfig.appendChild(userLabel);
+  userConfig.appendChild(changeUser);
+
   settingsContent.appendChild(clearPhoto);
   settingsContent.appendChild(CreateDivider());
 
@@ -166,6 +193,9 @@ function LoadGeneralSettings() {
   settingsContent.appendChild(CreateDivider());
 
   settingsContent.appendChild(locationConfig);
+  settingsContent.appendChild(CreateDivider());
+
+  settingsContent.appendChild(userConfig);
   settingsContent.appendChild(CreateDivider());
 
   settingsModal.appendChild(settingsContent);
