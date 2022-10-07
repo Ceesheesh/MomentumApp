@@ -21,7 +21,7 @@ function DefaultBackground() {
   try {
     let customPanel = document.querySelectorAll("[data-backgroundSet=publicBackgrounds]");
      customPanel.forEach(panel => {
-      panel.style.opacity = "0";
+      panel.remove();
      })
   } catch {}
   defaultBackgroundArr.forEach((background, idx) => {

@@ -6,6 +6,10 @@ function initiateTodoList() {
   todoButton.addEventListener('click', toggleTodoList)
   todoButton.textContent = "Todo";
   todoContainer.appendChild(todoButton);
+
+  if (localStorage.getItem("tasks") === null || localStorage.getItem("tasks").trim() === "") {
+    localStorage.setItem("tasks",JSON.stringify([]))
+  };
 }
 
 function toggleTodoList() {
@@ -15,17 +19,15 @@ function toggleTodoList() {
 
 
 function closeButton() {
-  let node = document.getElementById("AiFillCloseCircle");
+  let node = document.querySelector("[data-closeBtn=AiFillCloseCircle]"); 
   let clone = node.cloneNode(true);
   clone.style.opacity = "1";
   let closeButton = document.createElement('button');
+  closeButton.setAttribute('name', 'todoClear')
+  closeButton.classList.add('clearTodo');
   closeButton.style.width = "fit-content";
-  closeButton.style.backgroundColor = "transparent";
-  closeButton.style.zIndex = "5";
-  closeButton.addEventListener('click', (e) => { 
-    removeTask
-    e.stopPropagation();
-  })
+  closeButton.style.backgroundColor = "transparent";  
+  closeButton.addEventListener('click', removeTask)
   closeButton.style.border = "none";
   closeButton.appendChild(clone);
   return closeButton;
@@ -49,7 +51,7 @@ function createTodo() {
   let todoTitleContainer = document.createElement('div');
   todoTitleContainer.style.border = "none";
   todoTitleContainer.style.borderBottom = "1px solid rgb(255,255,255, 0.2)";
-  todoTitleContainer.style.paddingBottom = "0.5rem";
+  todoTitleContainer.style.padding = "0.5rem";
 
   todoApp.appendChild(todoTitleContainer);
 
@@ -57,11 +59,13 @@ function createTodo() {
   todoTitle.setAttribute('data-todo', 'todoTitle');
   todoTitle.setAttribute('name', 'todoTitle');
   todoTitle.innerHTML = 'My Todo';
+  todoTitle.style.fontSize = '1.1rem';
   todoTitleContainer.appendChild(todoTitle);
 
   let wrapper = document.createElement('div');
   wrapper.setAttribute('data-wrapper','wrapper');
   wrapper.setAttribute('name','wrapper');
+  wrapper.setAttribute('id', 'todoTasks');
   todoApp.appendChild(wrapper);
 
   let todoForm = document.createElement('div');
@@ -94,15 +98,10 @@ function SetTodoTitle(e) {
 //Reload tasks on Refresh  ---------------->
 
 function loadTasks() {
-  if (localStorage.getItem("tasks") == null) return;
-  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));
-
+  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));  
   let todoWrapper = document.querySelector("[data-wrapper=wrapper]");
-  let todoTasks = document.createElement("div");
-  todoTasks.style.maxHeight = "20rem";
-  todoTasks.style.overflow = "auto";
-  todoTasks.style.marginBottom = "0.5rem";
-  todoTasks.style.marginTop = "0.5rem";
+  let todoTasks = document.createElement("div");  
+  todoTasks.style.margin = "0.5rem";  
   todoTasks.setAttribute('name', 'removableTasks');
   todoWrapper.appendChild(todoTasks);
 
@@ -118,9 +117,10 @@ function taskCompartment(todoTasks, todo) {
 
   let todoChkbox = document.createElement('input');
   todoChkbox.setAttribute('type', 'checkbox');
-  todoChkbox.setAttribute('class', 'item_0');
+  // todoChkbox.setAttribute('class', 'item_0');
   todoChkbox.setAttribute('name', 'todoChk');
-  todoChkbox.classList.add('checkbox')
+  // todoChkbox.classList.add('checkbox');
+  todoChkbox.classList.add('todoChk')
   todoChkbox.addEventListener('click', finishedTask)
 
   let todoTaskName = document.createElement('input');
@@ -166,6 +166,8 @@ function removeTask() {
 function finishedTask(e) {  
   e.target.checked ? e.target.parentElement.children.todoValue.style.textDecoration = "line-through" :
   e.target.parentElement.children.todoValue.style.textDecoration = "none" ;  
+  e.target.checked ? e.target.parentElement.children.todoClear.children[0].style.color = "#cc0000" :
+  e.target.parentElement.children.todoClear.children[0].style.color = "#8e8e8e"
 }
 
 
