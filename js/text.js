@@ -6,7 +6,8 @@ function SetTextColor() {
   let dailyForm = document.querySelector("#dailyForm .userInput");
   let locationForm = document.querySelector("#locationForm .userInput");
   let editFocus = document.querySelector("#editFocus");
-  let logoff = document.querySelector("#sign_out")
+  let logoff = document.querySelector("#sign_out");
+  let todoToggle = document.querySelector("#todoToggle")
   
   try {
   custTextColor === null || custTextColor.trim() === ""
@@ -64,9 +65,15 @@ function SetTextColor() {
 
     try {
       custTextColor === null || custTextColor.trim() === ""
-        ? (logoff.style.borderBottom = "2px solid #fff")
-        : (logoff.style.borderBottom = `2px solid ${custTextColor}`);
+        ? (logoff.style.color = "2px solid #fff")
+        : (logoff.style.color = `2px solid ${custTextColor}`);
       } catch {}
+    
+      try {
+        custTextColor === null || custTextColor.trim() === ""
+          ? (todoToggle.style.color = "2px solid #fff")
+          : (todoToggle.style.color = `2px solid ${custTextColor}`);
+      } catch {}  
     
 }
 

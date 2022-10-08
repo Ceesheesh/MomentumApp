@@ -1,7 +1,8 @@
 initiateTodoList();
 function initiateTodoList() {  
   let todoContainer = document.getElementById('toDocontainer');
-  let todoButton = document.createElement('button');
+  let todoButton = document.createElement('label');
+  todoButton.setAttribute('id', 'todoToggle')
   todoButton.classList.add('open-button');
   todoButton.addEventListener('click', toggleTodoList)
   todoButton.textContent = "Todo";
