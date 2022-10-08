@@ -168,7 +168,7 @@ function LoadGeneralSettings() {
   let changeUser = document.createElement('input');
   changeUser.classList.add('userInput');
   changeUser.setAttribute('placeholder', 'New User Name Here');
-  changeUser.value = `${localStorage.getItem("UserName")}`;
+  changeUser.value = `${localStorage.getItem("UserName") === null ? "" : localStorage.getItem("UserName")}`
   changeUser.style.fontSize = "1rem";
   changeUser.addEventListener('keyup', function(e) {
     if (localStorage.getItem("UserName") === null || localStorage.getItem("UserName").trim() === "") return;
