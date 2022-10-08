@@ -53,7 +53,9 @@ function HelloMessage() {
     introForm.appendChild(introduction);
     introForm.style.opacity = "1"
   }
-  SetTextColor();
+  try{
+    SetTextColor();
+  } catch{}  
 }
 
 function AskLocation() {

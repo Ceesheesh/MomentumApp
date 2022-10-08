@@ -65,7 +65,7 @@ function GetDate(weatherContainer) {
   let weekDay = fullDate.toLocaleString("default", { weekday: "long" });
   let currMonth =  fullDate.toLocaleString("default", { month: "long" });
   let currYear = fullDate.getFullYear();
-  let currDay = fullDate.getDay() < 10 ? `0${fullDate.getDay()}` : fullDate.getDay();
+  let currDay = fullDate.getDate() < 10 ? `0${fullDate.getDate()}` : fullDate.getDate();
   let dateToday = document.createElement("label");
   dateToday.innerHTML = `${weekDay}, ${currMonth} ${currDay} ${currYear}`;
 
