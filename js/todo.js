@@ -18,10 +18,11 @@ function toggleTodoList() {
 }
 
 
-function closeButton() {
-  let node = document.querySelector("[data-closeBtn=AiFillCloseCircle]"); 
+function closeButton(todo) {
+  let node = document.querySelector("[data-closeBtn=AiFillCloseCircle]");    
   let clone = node.cloneNode(true);
   clone.style.opacity = "1";
+  
   let closeButton = document.createElement('button');
   closeButton.setAttribute('name', 'todoClear')
   closeButton.classList.add('clearTodo');
@@ -108,6 +109,19 @@ function loadTasks() {
   tasks.forEach(function (todo) {
     taskCompartment(todoTasks, todo);
   });
+  try {
+    let allTodo = [...document.querySelectorAll('.todoCompartment')]
+    allTodo.forEach(todoCompartment => {
+      
+      if(todoCompartment.children.todoChk.checked) {
+        todoCompartment.children.todoClear.children[0].style.color = "#cc0000"
+      } else {
+        todoCompartment.children.todoClear.children[0].style.color = "#8e8e8e"
+      }
+
+      
+    })
+  } catch {}
 }
 
 function taskCompartment(todoTasks, todo) {
@@ -121,6 +135,7 @@ function taskCompartment(todoTasks, todo) {
   todoChkbox.setAttribute('name', 'todoChk');
   // todoChkbox.classList.add('checkbox');
   todoChkbox.classList.add('todoChk')
+  todo.isDone && (todoChkbox.checked = true);
   todoChkbox.addEventListener('click', finishedTask)
 
   let todoTaskName = document.createElement('input');
@@ -128,15 +143,19 @@ function taskCompartment(todoTasks, todo) {
   todoTaskName.setAttribute('class', 'item-center');
   todoTaskName.setAttribute('disabled', 'disabled');
   todoTaskName.setAttribute('name', 'todoValue');
+  todo.isDone && (todoTaskName.style.textDecoration = 'line-through');
   todoTaskName.value = todo.task;
 
-  let todoDeleteTask = closeButton();
+  let todoDeleteTask = closeButton(todo);
+  
+
   todoDeleteTask.addEventListener('click', removeTask)
 
   taskDiv.appendChild(todoChkbox);
   taskDiv.appendChild(todoTaskName);
   taskDiv.appendChild(todoDeleteTask);
   
+  // todo.isDone && (todoDeleteTask.children.style.color = "#cc0000");
   todoTasks.appendChild(taskDiv);
 }
 
@@ -146,7 +165,7 @@ function addTask(e) {
   if (e.keyCode !== 13) return
   if (e.target.value.trim() === "" ) return
   
-  localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"), { task: e.target.value}]));
+  localStorage.setItem("tasks", JSON.stringify([...JSON.parse(localStorage.getItem("tasks") || "[]"), { task: e.target.value, isDone: false}]));
   e.target.parentElement.parentElement.children.wrapper.children.removableTasks.remove()
   e.target.value = "";
   loadTasks();
@@ -163,11 +182,20 @@ function removeTask() {
   this.parentElement.remove();
 }
 
-function finishedTask(e) {  
+function finishedTask(e) {    
   e.target.checked ? e.target.parentElement.children.todoValue.style.textDecoration = "line-through" :
   e.target.parentElement.children.todoValue.style.textDecoration = "none" ;  
   e.target.checked ? e.target.parentElement.children.todoClear.children[0].style.color = "#cc0000" :
-  e.target.parentElement.children.todoClear.children[0].style.color = "#8e8e8e"
+  e.target.parentElement.children.todoClear.children[0].style.color = "#8e8e8e";
+
+  let tasks = Array.from(JSON.parse(localStorage.getItem("tasks")));  
+  tasks.forEach(function (todo) {
+    if (todo.task === e.target.parentElement.children.todoValue.value) {
+      todo.isDone = !todo.isDone
+    }
+   
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  });
 }
 
 
