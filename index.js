@@ -17,6 +17,7 @@ loadScript('./js/text.js')
 loadScript('./js/settings.js')
 loadScript('./js/quotes.js')
 loadScript('./js/todo.js')
+loadScript('./js/signout.js')
 
 
 
